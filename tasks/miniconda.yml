@@ -1,0 +1,16 @@
+- name: download miniconda3
+  get_url:
+    url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    dest: /tmp/install-miniconda.sh
+    mode: 0550
+
+- name: install miniconda3
+  shell: /tmp/install-miniconda.sh -b -u -p ~/.miniconda3
+
+- name: remove miniconda3 installer
+  file:
+    state: absent
+    path: /tmp/install-miniconda.sh
+
+- name: add miniconda to PATH
+  shell: echo 'export PATH=~/.miniconda3/bin:$PATH' >> ~/.bashrc
